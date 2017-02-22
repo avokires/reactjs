@@ -23,7 +23,7 @@ class EditInvoce extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1 className="inl-bl">{this.props.title}</h1>
+                <h1 className="inl-bl">Edit Invoce</h1>
 
                 <Form>
 
@@ -90,9 +90,9 @@ class EditInvoce extends React.Component {
 };
 
 
-EditInvoce.propTypes = {
-    title: React.PropTypes.string.isRequired
-};
+// EditInvoce.propTypes = {
+//     title: React.PropTypes.string.isRequired
+// };
 
 export default EditInvoce;
 

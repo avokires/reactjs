@@ -1,24 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route } from 'react-router';
 
 import Header from './components/Header';
 import Customerlist from './components/Customerlist';
-import InvoceList from './components/InvoceList';
-import ProductList from './components/ProductList';
-import EditInvoce from './components/EditInvoce';
 
 import './styles.sass';
 
-function App(props) {
-	return (
-		<main>
-			<Header />
-			<Customerlist title="Customers list" />
-			<InvoceList title="Invoces List" />
-			<ProductList title="Product List" />
-			<EditInvoce title="Edit Invoce" />
-		</main>
-	);
+// console.log("1");
+
+class App extends React.Component {
+	render() {
+		return (
+			<main>
+				<Header />
+				{this.props.children}
+			</main>
+		);
+	}
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default App;

@@ -14,7 +14,7 @@ class InvoceList extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1 className="inl-bl">{this.props.title}</h1>
+                <h1 className="inl-bl">Invoces List</h1>
                 <Button className="inl-bl">Create</Button>
 
                 <Table responsive>
@@ -50,9 +50,9 @@ class InvoceList extends React.Component {
 };
 
 
-InvoceList.propTypes = {
-    title: React.PropTypes.string.isRequired
-};
+// InvoceList.propTypes = {
+//     title: React.PropTypes.string.isRequired
+// };
 
 export default InvoceList;
 

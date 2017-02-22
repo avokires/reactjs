@@ -2,6 +2,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
+import Header from './Header';
 
 class Customerlist extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class Customerlist extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1 className="inl-bl">{this.props.title}</h1>
+
+                <h1 className="inl-bl">Customers list</h1>
                 <Button className="inl-bl">Create</Button>
 
                 <Table responsive>
@@ -53,9 +55,9 @@ class Customerlist extends React.Component {
 };
 
 
-Customerlist.propTypes = {
-    title: React.PropTypes.string.isRequired
-};
+// Customerlist.propTypes = {
+//     title: React.PropTypes.string.isRequired
+// };
 
 export default Customerlist;
 

@@ -14,7 +14,7 @@ class ProductList extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1 className="inl-bl">{this.props.title}</h1>
+                <h1 className="inl-bl">Product List</h1>
                 <Button className="inl-bl">Create</Button>
 
                 <Table responsive>
@@ -44,9 +44,9 @@ class ProductList extends React.Component {
 };
 
 
-ProductList.propTypes = {
-    title: React.PropTypes.string.isRequired
-};
+// ProductList.propTypes = {
+//     title: React.PropTypes.string.isRequired
+// };
 
 export default ProductList;
 

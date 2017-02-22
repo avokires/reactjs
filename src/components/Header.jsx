@@ -1,7 +1,11 @@
 import React from 'react';
+
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+
+import Link from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class Header extends React.Component {
     render() {
@@ -13,9 +17,15 @@ class Header extends React.Component {
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
-                    <NavItem eventKey={1} href="#">Invoices</NavItem>
-                    <NavItem eventKey={2} href="#">Products</NavItem>
-                    <NavItem eventKey={3} href="#">Customers</NavItem>
+                    <LinkContainer to="/invoices">
+                        <NavItem eventKey={1}>Invoices</NavItem>
+                    </LinkContainer>
+                    <LinkContainer to="/products">
+                        <NavItem eventKey={2}>Products</NavItem>
+                    </LinkContainer>
+                    <LinkContainer to="/customers">
+                        <NavItem eventKey={3}>Customers</NavItem>
+                    </LinkContainer>
                 </Nav>
             </Navbar>
         );
