@@ -13,7 +13,7 @@ class Header extends React.Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">Invoice App</a>
+                        <a href="/">Invoice App</a>
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>

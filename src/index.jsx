@@ -16,6 +16,7 @@ ReactDOM.render(
 
     <Router history={browserHistory}>
         <Route path='/' component={App}>
+            <IndexRoute component={Customerlist} />   
             <Route path='/customers' component={Customerlist} />
             <Route path='/products' component={ProductList} />
             <Route path='/invoices' component={InvoceList} />
