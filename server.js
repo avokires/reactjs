@@ -171,6 +171,7 @@ app.route('/api/customers/:customer_id')
 		});
 	})
 	.put(function (req, res) {
+		console.log(req.body);
 		Customer.findById(req.params.customer_id).then(function (customer) {
 			customer.update(_.pick(req.body, ['name', 'address', 'phone'])).then(function (customer) {
 				res.json(customer);

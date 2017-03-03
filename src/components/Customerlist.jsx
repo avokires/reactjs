@@ -51,7 +51,8 @@ class Customerlist extends React.Component {
         let name = event.target.name;
         let value = event.target.value;
 
-        let modalFields = this.state.modalFields;
+        let modalFields = Object.assign({}, this.state.modalFields);
+        // let modalFields = this.state.modalFields;
         modalFields[name] = value;
 
         this.setState({
@@ -77,33 +78,30 @@ class Customerlist extends React.Component {
 
     save(event) {
         let customers = this.state.customers;
+        let modalFields = Object.assign({}, this.state.modalFields);
+        
+        axios.put( `http://localhost:8000/api/customers/${modalFields.id}`, modalFields )
+        .then(response => response.data)
+        .then(customer => 
+            {
+                customers.forEach((itemCustomer, i) => {
+                    if (itemCustomer.id  ===  customer.id){
+                        customers[i] = customer;
+                    }
+                });
 
-        // заменить на react immutable helpers 
-        customers.forEach((customer, i) => {
-           if (customer.id ===  this.state.modalFields.id){
-               this.state.customers[i] = this.state.modalFields;
-           }
-        });
-
-        this.setState({
-            showModal: false
-        });
-    }
-
-    gnerateID(customers){
-        let newCustomersId = customers.length;
-        newCustomersId += 1;
-
-        return (newCustomersId);
+                this.setState({
+                    customers: customers,
+                    showModal:false,
+                });
+            }
+        )
+        .catch(error => console.error(error));
     }
 
     add(event) {
         let customers = this.state.customers;
         let modalFields = this.state.modalFields;
-        
-        const config = {
-            headers: {'X-My-Custom-Header': 'Header-Value'}
-        };
 
         axios.post( 'http://localhost:8000/api/customers', modalFields )
         .then(response => response.data)
@@ -122,10 +120,28 @@ class Customerlist extends React.Component {
     }   
 
     delete(event, customer) {
-        this.setState({
-            customers: this.state.customers.filter((c) => c.id !== customer.id),
-            showModal: false
-        });
+
+        let customers = this.state.customers;
+        let modalFields = this.state.modalFields;
+        
+        axios.delete( `http://localhost:8000/api/customers/${modalFields.id}`, modalFields )
+        .then(response => response.data)
+        .then(customer => 
+            {
+                customers[customer.id] = customer 
+
+                this.setState({
+                    customers: this.state.customers.filter((c) => c.id !== customer.id),
+                    showModal:false
+                });
+            }
+        )
+        .catch(error => console.error(error));
+
+        // this.setState({
+        //     customers: this.state.customers.filter((c) => c.id !== customer.id),
+        //     showModal: false
+        // });
     }
 
     render() {
