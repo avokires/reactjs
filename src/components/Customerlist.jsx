@@ -46,6 +46,7 @@ class Customerlist extends React.Component {
         .catch(error => console.error(error));
     }
 
+
     handleChange(event) {
         let name = event.target.name;
         let value = event.target.value;
@@ -117,10 +118,9 @@ class Customerlist extends React.Component {
     }
 
     render() {
-        console.log("Customers", this.state.customers);
-        return (
+        return (    
             <div className="container">
-                <h1 className="inl-bl">Customers list</h1>
+                <h1 className="inl-bl">Customers list 1111222</h1>
                 <Button className="inl-bl" title="Add new customer" onClick={this.open}>Create</Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>

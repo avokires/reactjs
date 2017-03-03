@@ -1,23 +1,31 @@
+ var path = require('path');
+ var webpack = require('webpack');
+
  module.exports = {
-    entry: './src/index.jsx',
+     entry: [
+         'webpack-hot-middleware/client?reload=true',
+         path.join(__dirname, 'src/index.jsx')
+     ],
 
-    output: {
-            filename: 'bundle.js',
-            path: './public',
-    },
+     output: {
+         filename: 'bundle.js',
+         //  path: './public',
+         path: path.join(__dirname, '/public/'),
 
-    devServer: {
-        inline: true,
-        contentBase: './public',
-        port: 8000
-    }, 
+         publicPath: '/'
+     },
 
-    module: {
-         loaders: [
-             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'react-hot!babel-loader'
+     devServer: {
+         inline: true,
+         contentBase: './public',
+         port: 8000
+     },
+
+     module: {
+         loaders: [{
+                 test: /\.jsx?$/,
+                 exclude: /node_modules/,
+                 loaders: ['react-hot', 'babel-loader']
              },
              {
                  test: /\.sass$/,
@@ -26,9 +34,13 @@
          ]
      },
 
-    devtool: 'eval-source-map',
-    
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    }
+     plugins: [
+         new webpack.HotModuleReplacementPlugin(),
+     ],
+
+     devtool: 'eval-source-map',
+
+     resolve: {
+         extensions: ['', '.js', '.jsx']
+     }
  };
