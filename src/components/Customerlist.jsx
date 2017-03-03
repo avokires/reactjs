@@ -52,7 +52,6 @@ class Customerlist extends React.Component {
         let value = event.target.value;
 
         let modalFields = Object.assign({}, this.state.modalFields);
-        // let modalFields = this.state.modalFields;
         modalFields[name] = value;
 
         this.setState({
@@ -137,11 +136,6 @@ class Customerlist extends React.Component {
             }
         )
         .catch(error => console.error(error));
-
-        // this.setState({
-        //     customers: this.state.customers.filter((c) => c.id !== customer.id),
-        //     showModal: false
-        // });
     }
 
     render() {

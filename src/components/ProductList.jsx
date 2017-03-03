@@ -1,8 +1,11 @@
 
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+import axios from 'axios';
+
 import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
-
 import Modal from 'react-bootstrap/lib/Modal';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -18,25 +21,7 @@ class ProductList extends React.Component {
         this.state = {
             modalFields: {},
             showModal: false,
-            products: [
-                {
-                    id: 1,
-                    name: "Parachete Pants",
-                    price: "22.99"
-                },
-
-                {
-                    id: 2,
-                    name: "Phone Holder",
-                    price: "9.99"
-                },
-
-                {
-                    id: 3,
-                    name: "John Draper",
-                    price: "9.99"
-                }
-            ]
+            products: []
         };
 
         this.open = this.open.bind(this);
@@ -46,6 +31,13 @@ class ProductList extends React.Component {
         this.delete = this.delete.bind(this);
         this.save = this.save.bind(this);
 
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8000/api/products')
+        .then(response => response.data)
+        .then(products => this.setState({ products }))
+        .catch(error => console.error(error));
     }
 
     open(event, product, action){
@@ -64,13 +56,6 @@ class ProductList extends React.Component {
         })
     }
 
-    // cansel(event, product){
-    //     console.log(product);
-    //     // this.setState({
-    //     //     showModal: false
-    //     // })
-    // }
-
     handleChange(event){
         let name = event.target.name;
         let value = event.target.value;
@@ -86,42 +71,66 @@ class ProductList extends React.Component {
 
     add(event){
         let products = this.state.products;
-        let newProductID = products.length + 1;
         let modalFields = this.state.modalFields;
-        
-        modalFields['id'] = newProductID;
 
-        this.setState({
-            modalFields: modalFields,
-            products: this.state.products.concat([this.state.modalFields]),
-            showModal: false
-        });
+        axios.post( 'http://localhost:8000/api/products', modalFields )
+        .then(response => response.data)
+        .then(product => 
+            {
+                modalFields['id'] = product.id;
+                const products = [...this.state.products, modalFields]
+
+                this.setState({
+                    products: products,
+                    showModal:false
+                });
+            }
+        )
+        .catch(error => console.error(error));
     }
 
     delete(event, product){
+
         let products = this.state.products;
-        let newProducts = {}
+        let modalFields = this.state.modalFields;
+        
+        axios.delete( `http://localhost:8000/api/products/${modalFields.id}`, modalFields )
+        .then(response => response.data)
+        .then(product => 
+            {
+                products[product.id] = product 
 
-        newProducts = products.filter((p) => p.id !== product.id); 
+                this.setState({
+                    products: this.state.products.filter((c) => c.id !== product.id),
+                    showModal:false
+                });
+            }
+        )
+        .catch(error => console.error(error));
 
-        this.setState({
-            products: newProducts,
-            showModal: false
-        })
     }
 
     save(event){
         let products = this.state.products;
+        let modalFields = Object.assign({}, this.state.modalFields);
+        
+        axios.put( `http://localhost:8000/api/products/${modalFields.id}`, modalFields )
+        .then(response => response.data)
+        .then(product => 
+            {
+                products.forEach((itemProduct, i) => {
+                    if (itemProduct.id  ===  product.id){
+                        products[i] = product;
+                    }
+                });
 
-        products.forEach((product, i) => {
-           if (product.id ===  this.state.modalFields.id){
-               this.state.products[i] = this.state.modalFields;
-           }
-        });
-
-        this.setState({
-            showModal: false
-        })
+                this.setState({
+                    products: products,
+                    showModal:false,
+                });
+            }
+        )
+        .catch(error => console.error(error));
     }
 
     render() {
