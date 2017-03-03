@@ -157,6 +157,7 @@ app.route('/api/customers')
 		})
 	})
 	.post(function (req, res) {
+		console.log("ggg",req.body);
 		var customer = Customer.build(_.pick(req.body, ['name', 'address', 'phone']));
 		customer.save().then(function (customer) {
 			res.json(customer);

@@ -99,16 +99,27 @@ class Customerlist extends React.Component {
 
     add(event) {
         let customers = this.state.customers;
-        let newCustomersId = this.gnerateID(customers);
         let modalFields = this.state.modalFields;
-        modalFields['id'] = newCustomersId;
+        
+        const config = {
+            headers: {'X-My-Custom-Header': 'Header-Value'}
+        };
 
-        this.setState({
-            modalFields: modalFields,
-            customers: this.state.customers.concat([this.state.modalFields]),
-            showModal: false
-        });
-    }
+        axios.post( 'http://localhost:8000/api/customers', modalFields )
+        .then(response => response.data)
+        .then(customer => 
+            {
+                modalFields['id'] = customer.id;
+                const customers = [...this.state.customers, modalFields]
+
+                this.setState({
+                    customers: customers,
+                    showModal:false
+                });
+            }
+        )
+        .catch(error => console.error(error));
+    }   
 
     delete(event, customer) {
         this.setState({
@@ -120,7 +131,7 @@ class Customerlist extends React.Component {
     render() {
         return (    
             <div className="container">
-                <h1 className="inl-bl">Customers list 1111222</h1>
+                <h1 className="inl-bl">Customers list</h1>
                 <Button className="inl-bl" title="Add new customer" onClick={this.open}>Create</Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
@@ -203,6 +214,7 @@ class Customerlist extends React.Component {
                     </thead>
                     <tbody>
                         {
+
                             this.state.customers.map(
                                 customer =>
                                 <tr key={customer.id}>
