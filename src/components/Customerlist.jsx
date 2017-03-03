@@ -2,6 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import axios from 'axios';
+
 import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -25,36 +27,23 @@ class Customerlist extends React.Component {
         this.state = {
             modalFields: {},
             showModal: false,
-            customers: [
-                {
-                    id: 1,
-                    name: "Mark Benson",
-                    address: "353 Rochester St, Rialto FL 43250",
-                    phone: "555-534-2342"
-                },
-
-                {
-                    id: 2,
-                    name: "Bob Smith",
-                    address: "215 Market St, Dansville CA 94325",
-                    phone: "555-534-2342"
-                },
-
-                {
-                    id: 3,
-                    name: "John Draper",
-                    address: "890 Main St, Fontana IL 31450",
-                    phone: "555-534-2342"
-                }
-            ]
+            customers: []
 
         };
-
+        
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.save = this.save.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.add = this.add.bind(this);
+
+    }
+    
+    componentDidMount() {
+        axios.get('http://localhost:8000/api/customers')
+        .then(response => response.data)
+        .then(customers => this.setState({ customers }))
+        .catch(error => console.error(error));
     }
 
     handleChange(event) {
@@ -128,7 +117,7 @@ class Customerlist extends React.Component {
     }
 
     render() {
-
+        console.log("Customers", this.state.customers);
         return (
             <div className="container">
                 <h1 className="inl-bl">Customers list</h1>

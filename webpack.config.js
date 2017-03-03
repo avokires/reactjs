@@ -9,7 +9,7 @@
     devServer: {
         inline: true,
         contentBase: './public',
-        port: 3000
+        port: 8000
     }, 
 
     module: {
