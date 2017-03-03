@@ -1,3 +1,4 @@
 - [ ] create Modal components with its own state
 - [ ] use react immutable helpers to modify state
 - [ ] .catch error own function
+- [ ] validate form
