@@ -57,8 +57,6 @@ class Customerlist extends React.Component {
         this.add = this.add.bind(this);
     }
 
-    // didMount
-
     handleChange(event) {
         let name = event.target.name;
         let value = event.target.value;
@@ -130,9 +128,6 @@ class Customerlist extends React.Component {
     }
 
     render() {
-
-        const titleAdd = "Add new customer";
-        const titleEdit = "Edit customer";
 
         return (
             <div className="container">
@@ -250,6 +245,3 @@ Customerlist.propTypes = {
 };
 
 export default Customerlist;
-
-
-

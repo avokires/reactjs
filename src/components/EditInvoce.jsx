@@ -13,6 +13,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 class EditInvoce extends React.Component {
+    
     constructor(props) {
         super(props);
 
@@ -20,6 +21,7 @@ class EditInvoce extends React.Component {
 
         // };
     }
+
     render() {
         return (
             <div className="container">
