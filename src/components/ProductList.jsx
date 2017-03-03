@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Title, { flushTitle } from 'react-title-component';
 
 import axios from 'axios';
 
@@ -136,6 +137,7 @@ class ProductList extends React.Component {
     render() {
         return (
             <div className="container">
+                <Title render="Product list"/>
                 <h1 className="inl-bl">Product List</h1>
                 <Button className="inl-bl" title="Add new product" onClick={this.open}>Create</Button>
 

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Title, { flushTitle } from 'react-title-component';
 import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
 
@@ -14,6 +15,7 @@ class InvoceList extends React.Component {
     render() {
         return (
             <div className="container">
+                <Title render="Invoces list"/>
                 <h1 className="inl-bl">Invoces List</h1>
                 <Button className="inl-bl">Create</Button>
 

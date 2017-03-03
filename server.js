@@ -157,7 +157,7 @@ app.route('/api/customers')
 		})
 	})
 	.post(function (req, res) {
-		console.log("ggg",req.body);
+		console.log("ggg", req.body);
 		var customer = Customer.build(_.pick(req.body, ['name', 'address', 'phone']));
 		customer.save().then(function (customer) {
 			res.json(customer);
@@ -310,8 +310,6 @@ app.route('/api/invoices/:invoice_id/items/:id')
 // // serve static assets normally
 // app.use(express.static(__dirname + '/public'));
 
-
-
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -334,18 +332,14 @@ const middleware = webpackMiddleware(compiler, {
 
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler));
-app.get('*', function response(req, res) {
-	res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'public/index.html')));
-	res.end();
-});
-
-
-
-// // handle every other route with index.html, which will contain
-// // a script tag to your application's JavaScript file(s).
-// app.get('*', function (request, response) {
-// 	response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+// app.get('*', function response(req, res) {
+// 	res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'public/index.html')));
+// 	res.end();
 // });
+
+app.get('*', function response(req, res) {
+	res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 app.listen(port);
 console.log("server started on port " + port);
